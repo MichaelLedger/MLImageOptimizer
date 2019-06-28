@@ -2,6 +2,8 @@
 
 **使用 pngquant、jpegoptim、gifsicle 快速批量压缩 png、jpg、gif 图片 ( 支持无损压缩和有损压缩 )**
 
+## 根据图片类型区分压缩（所有图片必须在同一目录下）
+
 1、将需要压缩的图片拷贝至当前目录的文件夹<dir>下；
 2、打开终端，cd 到当前目录，然后执行 shell 脚本：
 ```
@@ -11,6 +13,11 @@ $ ./compress.sh <dir>
 ```
 3、压缩完毕的图片会自动分类并存储到当前目录下的 
 `<dir-compressed-pngs>` 、`<dir-compressed-jpgs>`、`<dir-compressed-gifs>` 文件夹内；
+
+## 自动递归压缩图片（推荐使用，图片可以在不同目录下）
+
+新增 `compress_recursive.sh` 脚本，使用方法和 `compress.sh` 一样；
+压缩完毕的图片会自动分类并存储到当前目录下的 `<dir-compressed>` 文件夹内
 
 ## 备注
 **if use '$ ./compress.sh <dir>', command line tool print error: 'Permission denied', please modify privilege using '$ chmod 777 compress.sh'**
