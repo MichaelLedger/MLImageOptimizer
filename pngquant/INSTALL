@@ -1,0 +1,92 @@
+## Compiling on Linux, *BSD and macOS
+
+(For instructions for Windows see section below.)
+
+### Using GNU/Makefile
+
+To get the code:
+
+    git clone --recursive https://github.com/kornelski/pngquant.git
+
+You will need libpng installed with development headers.
+On Linux install `libpng-dev` package. On macOS `brew install libpng`.
+
+There's an optional `./configure` step (see sections below). Run:
+
+    make
+
+It will create `pngquant` executable in the current directory. If you'd like
+to install it system-wide:
+
+    sudo make install
+
+By default it will be installed in /usr/local/bin. To install it in another
+directory run `./configure --prefix=dir && make`.
+
+pngquant uses GNU Makefile. To compile on FreeBSD you will need to use `gmake`.
+
+Avoid Linux distros that ship with libpng 1.2. It is old and buggy.
+Use libpng 1.6 or later.
+
+### Using Rust/Cargo
+
+If you have Rust, you can also build with `cargo build`.
+
+### Custom static libpng
+
+Extract libpng source code as a *sub*directory of pngquant source directory.
+Build static libpng (`./configure --enable-static && make`), and then
+`./configure && make` pngquant.
+
+When building with Cargo, `export PNG_STATIC=1`.
+
+## Windows
+
+Compiling on Windows is supported only via Rust/Cargo.
+
+ 1. Install git (msys-git).
+ 2. Install Visual C++ 2015 Build Tools.
+ 3. [Install Rust](https://www.rust-lang.org/install.html)
+ 4. Restart Windows.
+
+Open Git's Bash prompt and run:
+
+    git clone -b msvc --recursive https://github.com/kornelski/pngquant.git
+    cd pngquant
+
+This will create pngquant folder in your user folder. And then run:
+
+    cargo build --release
+
+It will create `pngquant.exe` in `target/release` subfolder.
+
+## Compilation with OpenMP
+
+    cargo build --release --features=openmp # or
+    cargo build --release --features=openmp-static
+
+On macOS you may need to install gcc and run `export CC=gcc-7` first,
+because clang doesn't support OpenMP (yet).
+
+## Compilation without Cocoa image reader
+
+macOS version can use Cocoa to read images. This adds support for color profiles
+and other image formats as input.
+
+    cargo build --release --features=cocoa
+
+## Compilation with Little CMS 2
+
+Little CMS library is used by default.
+
+It's linked dynamically if `pkg-config` is working (e.g. install `liblcms2-dev`).
+Otherwise uses static build as a fallback.
+
+Set `export LCMS2_STATIC=1` to force static linking.
+
+## Compilation of `libimagequant.a` only
+
+If you want to use pngquant's conversion algorithm without loading/saving PNG
+files, then you can run `make` or `cargo build` in the `lib/` directory.
+
+The library doesn't need libpng nor zlib.
