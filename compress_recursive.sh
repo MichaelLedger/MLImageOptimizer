@@ -34,7 +34,7 @@ for file in `find . \( -name "*.jpg" -o -name "*.jpeg" \)`
 do
 original_file=$file
 file_name=`echo ${original_file#*/}`
-$jpegoptim $file -m40 --overwrite -o $des_dir"/"$file_name
+$jpegoptim $file -o $des_dir"/"$file_name
 done
 
 echo "--- start compress gif ---"
@@ -47,6 +47,6 @@ for file in `find . -name "*.gif"`
 do
     original_file=$file
     file_name=`echo ${original_file#*/}`
-    $gifsicle $file -O3 --scale 0.5 --colors 256 --verbose -o $des_dir"/"$file_name
+    $gifsicle $file -O3 --colors 256 --verbose -o $des_dir"/"$file_name
 done
 echo "--- compress completed ! ---"

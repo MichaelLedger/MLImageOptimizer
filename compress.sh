@@ -29,7 +29,7 @@ jpegoptim=$path/lib/jpegoptim
 des_dir="../"$source_dir"-compressed-jpgs"
 echo "--- jpg_output_des_dir:"$des_dir" ---"
 [ -d $des_dir ] || mkdir -p $des_dir
-find . \( -name "*.jpg" -o -name "*.jpeg" \) | xargs $jpegoptim -m40 --overwrite --dest $des_dir;
+find . \( -name "*.jpg" -o -name "*.jpeg" \) | xargs $jpegoptim --overwrite --dest $des_dir;
 echo "--- start compress gif ---"
 find . -name "*.gif" -print | xargs -n1
 gifsicle=$path/lib/gifsicle
@@ -40,6 +40,6 @@ for file in `find . -name "*.gif"`
 do
     original_file=$file
     file_name=`echo ${original_file#*/}`
-    $gifsicle $file -O3 --scale 0.5 --colors 256 --verbose -o $des_dir"/"$file_name
+    $gifsicle $file -O3 --colors 256 --verbose -o $des_dir"/"$file_name
 done
 echo "--- compress completed ! ---"
