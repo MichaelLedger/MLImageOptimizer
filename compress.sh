@@ -66,7 +66,9 @@ echo "--- see all images in txt.log ---"
 
 echo "--- start compress png ---"
 find . -name "*.png" -print | xargs -n1
-pngquant=$path/pngquant/pngquant
+#pngquant=$path/pngquant/pngquant
+#使用lib中已经编译好的可执行文件进行压缩
+pngquant=$path/lib/pngquant
 
 #find . -name "*.png" -exec $pngquant --ext=.png --skip-if-larger --verbose --force {} \;
 
@@ -210,7 +212,9 @@ find . \( -name "*.jpg" -o -name "*.jpeg" \) -print | xargs -n1
 #make strip
 #make install
 
-jpegoptim=$path/jpegoptim/jpegoptim
+#jpegoptim=$path/jpegoptim/jpegoptim
+#使用lib中已经编译好的可执行文件进行压缩
+jpegoptim=$path/lib/jpegoptim
 
 #图片导出目录
 des_dir="../"$source_dir"-compressed-jpgs"
@@ -239,7 +243,9 @@ find . -name "*.gif" -print | xargs -n1
 #gifsicle -O3 animation.gif -o animation-optimized.gif
 #如果你有耐心和时间，推荐你尝试一下-O3，它有可能会给你输出体积更小的GIF动图。在有些图片上，它有可能压缩超过20%的体积，根据你提供的GIF动图的图片构成，它有可能压缩更大的体积。
 
-gifsicle=$path/gifsicle/src/gifsicle
+#gifsicle=$path/gifsicle/src/gifsicle
+#使用lib中已经编译好的可执行文件进行压缩
+gifsicle=$path/lib/gifsicle
 
 #图片导出目录
 des_dir="../"$source_dir"-compressed-gifs"
