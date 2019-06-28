@@ -9,7 +9,8 @@ $ sh compress.sh <dir>
 或者
 $ ./compress.sh <dir>
 ```
-3、压缩完毕的图片会自动分类并存储到当前目录下的 <dir-compressed-pngs> 、<dir-compressed-jpgs>、<dir-compressed-gifs>文件夹内；
+3、压缩完毕的图片会自动分类并存储到当前目录下的 
+`<dir-compressed-pngs>` 、`<dir-compressed-jpgs>`、`<dir-compressed-gifs>` 文件夹内；
 
 ## 备注
 **if use '$ ./compress.sh <dir>', command line tool print error: 'Permission denied', please modify privilege using '$ chmod 777 compress.sh'**
