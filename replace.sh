@@ -40,7 +40,7 @@ file_name=`echo ${original_file#*/}`
 [ -d $des_dir"/"$sub_file_path ] || mkdir -p $des_dir"/"$sub_file_path
 [[ $file_name =~ "/" ]] || sub_file_path=""
 echo $file_name"===="$des_dir"/"$sub_file_path
-$jpegoptim $file -m40 -o -d $des_dir"/"$sub_file_path
+$jpegoptim $file -o -d $des_dir"/"$sub_file_path
 done
 echo "--- start compress gif ---"
 find . -name "*.gif" -print | xargs -n1
