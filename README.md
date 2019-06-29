@@ -3,7 +3,7 @@
 **使用 [`pngquant`](https://github.com/kornelski/pngquant)、[`jpegoptim`](https://github.com/tjko/jpegoptim)
 、[`gifsicle`](https://github.com/kohler/gifsicle) 快速批量递归压缩 png、jpg、gif 图片 ( 支持无损压缩和有损压缩 )**
 
-## 自动递归压缩图片（图片可以在不同目录下）
+## 自动递归压缩图片（默认开启无损压缩）
 
 两种脚本：
 `optimizer.sh` 压缩完毕的图片会存储到原图 `<dir>` 同级目录下的文件夹 `<dir-optimized>` 内；
