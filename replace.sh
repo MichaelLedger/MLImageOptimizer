@@ -1,11 +1,6 @@
 #!/bin/sh
-if [ $# == 0 ];then
-    echo "--- not found dir ---"
-    echo "--- please use command like this: '$ ./compress.sh <dir>' or '$ sh compress.sh <dir>' ---"
-    exit
-fi
 if [ ! $# == 1 ];then
-    echo "--- dir num > 1 ---"
+    echo "--- dir num not equal to 1 ---"
     exit
 fi
 path=$(cd "$(dirname "$0")";pwd)
@@ -14,7 +9,6 @@ cd $source_dir
 echo "--- start compress png ---"
 find . -name "*.png" -print | xargs -n1
 pngquant=$path/lib/pngquant
-#&&左边的命令（命令1）返回真(即返回0，成功被执行）后，&&右边的命令（命令2）才能够被执行；换句话说，“如果这个命令执行成功&&那么执行这个命令”。||恰恰相反。
 if [[ $source_dir =~ "/" ]] ;then
 des_dir=$source_dir
 else
