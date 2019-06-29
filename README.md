@@ -29,9 +29,12 @@ $ sh /Users/mountainx/Documents/MLImageOptimizer/optimizer.sh /Users/mountainx/D
 ```
 
 ## 备注
+
+**有损压缩比例 or 无损压缩可以在 `optimizer.sh` 和 `replace.sh` 中进行修改，参照下面的 `pngquant` 、 `jpegoptim` 、 `gifsicle` 的命令选项**
+
 `f use '$ ./optimizer.sh <dir>', command line tool print error: 'Permission denied', please modify privilege using '$ chmod 777 optimizer.sh'`
 
-**有损压缩比例 or 无损压缩可以在 optimizer.sh 中进行修改，参照下面的 `pngquant` 、 `jpegoptim` 、 `gifsicle` 的命令选项**
+**请勿在文件夹名称 `<dir>` 末尾添加 `/`，避免脚本路径识别出错**
 
 ## pngquant 命令选项
 ```
