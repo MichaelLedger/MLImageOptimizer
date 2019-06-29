@@ -1,85 +1,37 @@
 # MLImageOptimizer
 
-**使用 pngquant、jpegoptim、gifsicle 快速批量压缩 png、jpg、gif 图片 ( 支持无损压缩和有损压缩 )**
+**使用 [`pngquant`](https://github.com/kornelski/pngquant)、[`jpegoptim`](https://github.com/tjko/jpegoptim)
+、[`gifsicle`](https://github.com/kohler/gifsicle) 快速批量递归压缩 png、jpg、gif 图片 ( 支持无损压缩和有损压缩 )**
 
-## 根据图片类型区分压缩（所有图片必须在同一目录下）
+## 自动递归压缩图片（图片可以在不同目录下）
 
-1、将需要压缩的图片拷贝至当前目录的文件夹<dir>下；
-2、打开终端，cd 到当前目录，然后执行 shell 脚本：
+两种脚本：
+`optimizer.sh` 压缩完毕的图片会存储到原图 `<dir>` 同级目录下的文件夹 `<dir-optimized>` 内；
+`replace.sh` 脚本压缩图片并直接替换原图
+
+打开终端，cd 到当前目录，然后执行 shell 脚本：
 ```
-$ sh compress.sh <dir>
-或者
-$ ./compress.sh <dir>
+$ sh optimizer.sh <dir>
+or
+$ ./optimizer.sh <dir>
+
+$ sh replace.sh <dir>
+or
+$ ./replace.sh <dir>
 ```
-3、压缩完毕的图片会自动分类并存储到当前目录下的 
-`<dir-compressed-pngs>` 、`<dir-compressed-jpgs>`、`<dir-compressed-gifs>` 文件夹内；
+当然也支持在其他路径下执行，无需cd到当前目录：
+```
+// 使用replace.sh脚本压缩图片并直接替换原图
+$ sh /Users/mountainx/Documents/MLImageOptimizer/replace.sh /Users/mountainx/Documents/Images
 
-## 自动递归压缩图片（推荐使用，图片可以在不同目录下）
-
-新增 `compress_recursive.sh` 脚本，使用方法和 `compress.sh` 一样；
-压缩完毕的图片会自动分类并存储到当前目录下的 `<dir-compressed>` 文件夹内
+// 使用optimizer.sh脚本压缩图片，保留原图，并将压缩后的图片保存在原图同级目录下的文件夹 `<dir-optimized>` 内
+$ sh /Users/mountainx/Documents/MLImageOptimizer/optimizer.sh /Users/mountainx/Documents/Images
+```
 
 ## 备注
-**if use '$ ./compress.sh <dir>', command line tool print error: 'Permission denied', please modify privilege using '$ chmod 777 compress.sh'**
+`f use '$ ./optimizer.sh <dir>', command line tool print error: 'Permission denied', please modify privilege using '$ chmod 777 optimizer.sh'`
 
-**有损压缩比例 or 无损压缩可以在 compress.sh 中进行修改**
-
-## 测试 TEST
-```
-$ cd MLImageOptimizer
-$ sh compress.sh test
-```
-
-## 终端示例
-```
-$ cd MLImageOptimizer
-$ sh compress.sh test
---- path=/Users/MichaelLedger/MLImageOptimizer ---
---- source_dir:test ---
---- see all images in txt.log ---
---- start compress png ---
-./apple-stock.png
-./noise-reduction-louvered-fan.png
---- png_output_des_dir:../test-compressed-pngs ---
-apple-stock.png:
-read 554KB file
-used embedded ICC profile to transform image to sRGB colorspace
-made histogram...2699 colors found
-selecting colors...5%
-selecting colors...35%
-selecting colors...65%
-selecting colors...95%
-selecting colors...100%
-moving colormap towards local minimum
-eliminated opaque tRNS-chunk entries...0 entries transparent
-mapped image to new colors...MSE=0.068 (Q=99)
-writing 256-color image as apple-stock.png
-copied 1KB of additional PNG metadata
-Quantized 1 image.
-noise-reduction-louvered-fan.png:
-read 325KB file
-made histogram...69883 colors found
-selecting colors...11%
-selecting colors...22%
-selecting colors...33%
-selecting colors...100%
-moving colormap towards local minimum
-eliminated opaque tRNS-chunk entries...0 entries transparent
-mapped image to new colors...MSE=2.022 (Q=93)
-writing 256-color image as noise-reduction-louvered-fan.png
-Quantized 1 image.
---- start compress jpg ---
-./mac-pro-first-generation.jpeg
-./waitress.jpg
---- jpg_output_des_dir:../test-compressed-jpgs ---
-./mac-pro-first-generation.jpeg 640x384 24bit N JFIF  [OK] 40942 --> 22680 bytes (44.60%), optimized.
-./waitress.jpg 6000x3375 24bit N ICC JFIF  [OK] 1488238 --> 716770 bytes (51.84%), optimized.
---- start compress gif ---
-./bird.gif
---- gif_output_des_dir:../test-compressed-gifs ---
-> [../test-compressed-gifs/bird.gif]
---- compress completed ! ---
-```
+**有损压缩比例 or 无损压缩可以在 optimizer.sh 中进行修改，参照下面的 `pngquant` 、 `jpegoptim` 、 `gifsicle` 的命令选项**
 
 ## pngquant 命令选项
 ```

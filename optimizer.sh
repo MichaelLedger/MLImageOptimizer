@@ -8,14 +8,19 @@ if [ ! $# == 1 ];then
     echo "--- dir num > 1 ---"
     exit
 fi
-path=`pwd`
+#path=`pwd`
+#cd和pwd命令配合获取脚本所在绝对路径
+path=$(cd "$(dirname "$0")";pwd)
 source_dir=$1
-cp -R -f $source_dir $source_dir"-compressed"
+#避免已有同名文件夹，拷贝到同名文件夹下
+[ -d $source_dir"-optimized" ] && rm -rf $source_dir"-optimized"
+#加反斜杠 \cp 执行cp命令时不走alias，解决Linux CentOS中cp -f 复制强制覆盖的命令无效的方法
+\cp -R -f $source_dir $source_dir"-optimized"
 cd $source_dir
 echo "--- start compress png ---"
 find . -name "*.png" -print | xargs -n1
 pngquant=$path/lib/pngquant
-des_dir="../"$source_dir"-compressed"
+des_dir=$source_dir"-optimized"
 echo "--- png_output_des_dir:"$des_dir" ---"
 [ -d $des_dir ] || mkdir -p $des_dir
 for file in `find . -name "*.png"`
@@ -27,20 +32,25 @@ done
 echo "--- start compress jpg ---"
 find . \( -name "*.jpg" -o -name "*.jpeg" \) -print | xargs -n1
 jpegoptim=$path/lib/jpegoptim
-des_dir="../"$source_dir"-compressed"
+des_dir=$source_dir"-optimized"
 echo "--- jpg_output_des_dir:"$des_dir" ---"
 [ -d $des_dir ] || mkdir -p $des_dir
 for file in `find . \( -name "*.jpg" -o -name "*.jpeg" \)`
 do
 original_file=$file
 file_name=`echo ${original_file#*/}`
-$jpegoptim $file -o $des_dir"/"$file_name
+[[ $file_name =~ "/" ]] && echo "$file_name contains '/'" && sub_file_path=`echo ${file_name%/*}`
+#-d filename 如果filename为目录，则为真; mkdir参数P代表parents，表示递归创建目录
+[ -d $des_dir"/"$sub_file_path ] || mkdir -p $des_dir"/"$sub_file_path
+[[ $file_name =~ "/" ]] || echo "$file_name does NOT contains '/'" || sub_file_path=""
+echo $file_name"===="$des_dir"/"$sub_file_path
+$jpegoptim $file -m40 -o -d $des_dir"/"$sub_file_path
 done
 
 echo "--- start compress gif ---"
 find . -name "*.gif" -print | xargs -n1
 gifsicle=$path/lib/gifsicle
-des_dir="../"$source_dir"-compressed"
+des_dir=$source_dir"-optimized"
 echo "--- gif_output_des_dir:"$des_dir" ---"
 [ -d $des_dir ] || mkdir -p $des_dir
 for file in `find . -name "*.gif"`
