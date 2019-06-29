@@ -1,10 +1,12 @@
 #!/bin/sh
-if [ ! $# == 1 ];then
+if [ ! $# == 1 ] ;then
     echo "--- dir num not equal to 1 ---"
     exit
 fi
 path=$(cd "$(dirname "$0")";pwd)
 source_dir=$1
+suffix=`echo ${source_dir##*/}`
+[[ ! $suffix ]] && echo "dir path's suffix could not be '/'" && exit
 [ -d $source_dir"-optimized" ] && rm -rf $source_dir"-optimized"
 \cp -R -f $source_dir $source_dir"-optimized"
 cd $source_dir

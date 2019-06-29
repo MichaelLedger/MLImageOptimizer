@@ -5,6 +5,8 @@ if [ ! $# == 1 ];then
 fi
 path=$(cd "$(dirname "$0")";pwd)
 source_dir=$1
+suffix=`echo ${source_dir##*/}`
+[[ ! $suffix ]] && echo "dir path's suffix could not be '/'" && exit
 cd $source_dir
 echo "--- start compress png ---"
 find . -name "*.png" -print | xargs -n1
