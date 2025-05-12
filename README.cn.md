@@ -1,16 +1,17 @@
 # MLImageOptimizer
 
-**Fast batch recursive compression for png, jpg, and gif images using [`pngquant`](https://github.com/kornelski/pngquant), [`jpegoptim`](https://github.com/tjko/jpegoptim), and [`gifsicle`](https://github.com/kohler/gifsicle) (supports both lossless and lossy compression)**
+[English](README.md) | [中文文档](README.cn.md)
 
-[中文文档](README.md) | [English](README.en.md)
+**使用 [`pngquant`](https://github.com/kornelski/pngquant)、[`jpegoptim`](https://github.com/tjko/jpegoptim)
+、[`gifsicle`](https://github.com/kohler/gifsicle) 快速批量递归压缩 png、jpg、gif 图片 ( 支持无损压缩和有损压缩 )**
 
-## Automatic Recursive Image Compression (Lossless Compression Enabled by Default)
+## 自动递归压缩图片（默认开启无损压缩）
 
-Two scripts are available:
-`optimizer.sh` saves compressed images to a folder named `<dir-optimized>` in the same directory as the original `<dir>`;
-`replace.sh` compresses images and directly replaces the originals.
+两种脚本：
+`optimizer.sh` 压缩完毕的图片会存储到原图 `<dir>` 同级目录下的文件夹 `<dir-optimized>` 内；
+`replace.sh` 脚本压缩图片并直接替换原图
 
-Open a terminal, cd to the current directory, then execute the shell script:
+打开终端，cd 到当前目录，然后执行 shell 脚本：
 ```
 $ sh optimizer.sh <dir>
 or
@@ -20,22 +21,22 @@ $ sh replace.sh <dir>
 or
 $ ./replace.sh <dir>
 ```
-You can also execute from any path without cd'ing to the current directory:
+当然也支持在其他路径下执行，无需cd到当前目录：
 ```
-// Using replace.sh to compress images and directly replace originals
+// 使用replace.sh脚本压缩图片并直接替换原图
 $ sh /Users/mountainx/Documents/MLImageOptimizer/replace.sh /Users/mountainx/Documents/Images
 
-// Using optimizer.sh to compress images, preserve originals, and save compressed images to '<dir-optimized>' folder
+// 使用optimizer.sh脚本压缩图片，保留原图，并将压缩后的图片保存在原图同级目录下的文件夹 `<dir-optimized>` 内
 $ sh /Users/mountainx/Documents/MLImageOptimizer/optimizer.sh /Users/mountainx/Documents/Images
 ```
 
-## Notes
+## 备注
 
-**Lossy compression ratio or lossless compression can be modified in `optimizer.sh` and `replace.sh`, referring to the command options for `pngquant`, `jpegoptim`, and `gifsicle` below**
+**有损压缩比例 or 无损压缩可以在 `optimizer.sh` 和 `replace.sh` 中进行修改，参照下面的 `pngquant` 、 `jpegoptim` 、 `gifsicle` 的命令选项**
 
-`if using '$ ./optimizer.sh <dir>' and command line tool prints error: 'Permission denied', please modify privileges using '$ chmod 777 optimizer.sh'`
+`if use '$ ./optimizer.sh <dir>', command line tool print error: 'Permission denied', please modify privilege using '$ chmod 777 optimizer.sh'`
 
-## pngquant Command Options
+## pngquant 命令选项
 ```
 $ pngquant -h
 pngquant, 2.12.3 (January 2019), by Kornel Lesinski, Greg Roelofs.
@@ -66,7 +67,7 @@ The default behavior if the output file exists is to skip the conversion;
 use --force to overwrite. See man page for full list of options.
 ```
 
-## jpegoptim Command Options
+## jpegoptim 命令选项
 ```
 $ jpegoptim -h
 jpegoptim v1.4.6  Copyright (C) 1996-2018, Timo Kokkonen
@@ -113,7 +114,7 @@ preserve original file permissions by overwriting it
 --stdin           read input from standard input (instead of a file)
 ```
 
-## gifsicle Command Options
+## gifsicle 命令选项
 ```
 $ gifsicle -h
 'Gifsicle' manipulates GIF images. Its most common uses include combining
@@ -206,4 +207,4 @@ be 'web', 'gray', 'bw', or a GIF file.
 
 Report bugs to <ekohler@gmail.com>.
 Too much information? Try 'gifsicle --help | more'.
-``` 
+```
